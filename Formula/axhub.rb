@@ -7,7 +7,7 @@ class Axhub < Formula
   desc "CLI for the axhub developer platform"
   homepage "https://cli.jocodingax.ai"
   version "0.0.1"
-  license :cannot_represent # Proprietary
+  license :all_rights_reserved # Proprietary
 
   on_macos do
     on_arm do
