@@ -1,7 +1,5 @@
 # CODEOWNERS — homebrew-tap
+# R13: single owner 2026-04-20 (사용자 결정). future backup 추가 예정.
+
 *                       @realitsyourman
-
-# Formula (auto-updated by goreleaser, human review for schema changes only)
 /Formula/               @realitsyourman
-
-# TODO: Add backup owner before Phase 1.
