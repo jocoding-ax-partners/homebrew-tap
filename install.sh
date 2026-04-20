@@ -12,6 +12,7 @@ OWNER="jocoding-ax-partners"
 REPO="ax-hub-cli"
 BIN="axhub"
 INSTALL_DIR="${AXHUB_INSTALL_DIR:-$HOME/.axhub/bin}"
+CDN_BASE="${AXHUB_CDN_BASE:-https://cli.jocodingax.ai}"
 
 log() { printf '\033[1;34m==>\033[0m %s\n' "$*"; }
 err() { printf '\033[1;31merror:\033[0m %s\n' "$*" >&2; exit 1; }
@@ -29,21 +30,20 @@ case "$raw_arch" in
   *) err "unsupported architecture: $raw_arch";;
 esac
 
-# 2. Resolve release tag (default: latest, override with AXHUB_VERSION)
+# 2. Resolve release tag (default: latest from CDN, override with AXHUB_VERSION)
 if [ -n "${AXHUB_VERSION:-}" ]; then
   tag="$AXHUB_VERSION"
   case "$tag" in v*) ;; *) tag="v$tag";; esac
 else
-  api_url="https://api.github.com/repos/${OWNER}/${REPO}/releases/latest"
-  tag="$(curl -fsSL "$api_url" | grep -E '"tag_name"\s*:' | head -1 | sed -E 's/.*"tag_name"[^"]*"([^"]+)".*/\1/')"
-  [ -n "$tag" ] || err "failed to resolve latest tag from $api_url"
+  tag="$(curl -fsSL "$CDN_BASE/version.txt" | tr -d '\n\r ')"
+  [ -n "$tag" ] || err "failed to resolve latest tag from $CDN_BASE/version.txt"
 fi
 version="${tag#v}"
 log "Installing axhub $tag for $os/$arch"
 
 # 3. Download archive + checksums
 archive="axhub_${version}_${os}_${arch}.tar.gz"
-base="https://github.com/${OWNER}/${REPO}/releases/download/${tag}"
+base="$CDN_BASE/$version"
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
 

@@ -18,6 +18,12 @@ if ($env:AXHUB_INSTALL_DIR) {
     $InstallDir = Join-Path $env:USERPROFILE ".axhub\bin"
 }
 
+if ($env:AXHUB_CDN_BASE) {
+    $CdnBase = $env:AXHUB_CDN_BASE
+} else {
+    $CdnBase = "https://cli.jocodingax.ai"
+}
+
 function Step($msg) { Write-Host "==> $msg" -ForegroundColor Cyan }
 function Fail($msg) { Write-Host "error: $msg" -ForegroundColor Red; exit 1 }
 
@@ -28,22 +34,20 @@ $arch = switch ($env:PROCESSOR_ARCHITECTURE) {
     default { Fail "unsupported architecture: $($env:PROCESSOR_ARCHITECTURE)" }
 }
 
-# 2. Resolve release tag
+# 2. Resolve release tag (default: latest from CDN, override with AXHUB_VERSION)
 if ($env:AXHUB_VERSION) {
     $tag = $env:AXHUB_VERSION
     if (-not $tag.StartsWith("v")) { $tag = "v$tag" }
 } else {
-    $api = "https://api.github.com/repos/$Owner/$Repo/releases/latest"
-    $release = Invoke-RestMethod -Uri $api -Headers @{ "User-Agent" = "axhub-installer" }
-    $tag = $release.tag_name
-    if (-not $tag) { Fail "failed to resolve latest tag" }
+    $tag = (Invoke-WebRequest -UseBasicParsing -Uri "$CdnBase/version.txt").Content.Trim()
+    if (-not $tag) { Fail "failed to resolve latest tag from $CdnBase/version.txt" }
 }
 $version = $tag -replace '^v', ''
 Step "Installing axhub $tag for windows/$arch"
 
 # 3. Download archive + checksums
 $archive = "axhub_${version}_windows_${arch}.zip"
-$base    = "https://github.com/$Owner/$Repo/releases/download/$tag"
+$base    = "$CdnBase/$version"
 $tmp     = New-Item -ItemType Directory -Path ([IO.Path]::Combine($env:TEMP, [IO.Path]::GetRandomFileName()))
 
 try {
