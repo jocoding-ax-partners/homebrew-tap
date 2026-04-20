@@ -10,17 +10,19 @@ permissions:
 
 jobs:
   audit:
-    runs-on: macos-latest
+    runs-on: [self-hosted, macOS, ARM64]
     steps:
       - uses: actions/checkout@v4
-      - uses: Homebrew/actions/setup-homebrew@master
       - name: Audit formula (placeholder tolerated)
         # Placeholder URLs + sha256 will fail --online audit until goreleaser
         # writes real values on first v0.0.1 release. Keep continue-on-error
         # until Phase 0 Lane A-3 D5 E2E passes.
         continue-on-error: true
         run: |
-          brew tap-new --no-git "jocoding-ax-partners/tap" || true
-          cp -f Formula/*.rb "$(brew --repo jocoding-ax-partners/tap)/Formula/"
-          brew audit --strict jocoding-ax-partners/tap/axhub || \
-            echo "::warning::brew audit failed on placeholder — expected until v0.0.1 release."
+          for f in Formula/*.rb; do
+            echo "::group::Audit $f"
+            /usr/bin/ruby -c "$f"
+            /opt/homebrew/bin/brew audit --formula "$f" || \
+              echo "::warning::brew audit failed on placeholder — expected until v0.0.1 release."
+            echo "::endgroup::"
+          done
