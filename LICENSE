@@ -1,0 +1,16 @@
+axhub Homebrew Tap — Formula Files
+
+Copyright (c) 2026 조코딩 AX 파트너스 (Jocoding AX Partners). All rights reserved.
+
+The Ruby Formula files in this repository describe how to install the axhub CLI
+via Homebrew. The Formula source code in this repository is released for the
+sole purpose of enabling installation by users with a valid axhub license.
+
+The axhub binary installed by these formulas is governed by the axhub End User
+License Agreement (Proprietary) distributed alongside the binary.
+
+Redistribution or modification of the Formula files is permitted only to the
+extent necessary to fork and maintain a private tap. Any such derivative must
+remove all references to "axhub" and "jocodingax" trademarks.
+
+Contact: legal@jocodingax.ai

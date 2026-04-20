@@ -1,0 +1,7 @@
+# CODEOWNERS — homebrew-tap
+*                       @realitsyourman
+
+# Formula (auto-updated by goreleaser, human review for schema changes only)
+/Formula/               @realitsyourman
+
+# TODO: Add backup owner before Phase 1.
