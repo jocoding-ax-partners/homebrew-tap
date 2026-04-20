@@ -65,6 +65,9 @@ cosign verify-blob \
   checksums.txt
 ```
 
+Full verification guide (version-pinning regex, Rekor transparency log, troubleshooting):
+see [`docs/verify.md`](./docs/verify.md).
+
 ## Status
 
 **v0.0.x** — placeholder formula. Real URLs/checksums are written automatically by
