@@ -36,7 +36,8 @@ scoop install axhub
 ### Manual download
 
 Grab the archive for your platform from
-<https://github.com/jocoding-ax-partners/ax-hub-cli/releases/latest>.
+<https://cli.jocodingax.ai/version.txt> and the matching
+`https://cli.jocodingax.ai/<version>/axhub_<version>_<os>_<arch>.<ext>` asset.
 
 ## Uninstall
 
@@ -70,8 +71,8 @@ see [`docs/verify.md`](./docs/verify.md).
 
 ## Status
 
-**v0.0.x** — placeholder formula. Real URLs/checksums are written automatically by
-`goreleaser` on each upstream release tag.
+**v0.0.1** — formula and install scripts resolve release artifacts from
+`cli.jocodingax.ai`. Future tags are still updated by upstream `goreleaser`.
 
 ## License
 
