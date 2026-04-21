@@ -21,9 +21,13 @@ jobs:
       - name: Audit formula
         run: |
           for f in Formula/*.rb; do
+            formula="$(basename "$f" .rb)"
+            tap_path="$(brew --repository)/Library/Taps/jocoding-ax-partners/homebrew-tap"
             echo "::group::Audit $f"
             ruby -c "$f"
-            brew audit --formula "$f"
+            mkdir -p "$tap_path/Formula"
+            cp "$f" "$tap_path/Formula/$formula.rb"
+            brew audit --strict "jocoding-ax-partners/tap/$formula"
             echo "::endgroup::"
           done
       - name: Verify formula URLs and sha256 against CDN checksums
