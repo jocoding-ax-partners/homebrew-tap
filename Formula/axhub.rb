@@ -45,6 +45,6 @@ class Axhub < Formula
   end
 
   test do
-    system "#{bin}/axhub", "--version"
+    system bin/"axhub", "--version"
   end
 end

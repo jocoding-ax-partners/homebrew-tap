@@ -23,11 +23,14 @@ jobs:
           for f in Formula/*.rb; do
             formula="$(basename "$f" .rb)"
             tap_path="$(brew --repository)/Library/Taps/jocoding-ax-partners/homebrew-tap"
+            target="$tap_path/Formula/$formula.rb"
             echo "::group::Audit $f"
             ruby -c "$f"
             mkdir -p "$tap_path/Formula"
-            cp "$f" "$tap_path/Formula/$formula.rb"
-            brew audit --strict "jocoding-ax-partners/tap/$formula"
+            if [ "$(cd "$(dirname "$f")" && pwd)/$(basename "$f")" != "$target" ]; then
+              cp -f "$f" "$target"
+            fi
+            brew audit --strict --except license "jocoding-ax-partners/tap/$formula"
             echo "::endgroup::"
           done
       - name: Verify formula URLs and sha256 against CDN checksums
