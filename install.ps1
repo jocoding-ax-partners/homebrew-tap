@@ -1,10 +1,10 @@
 # axhub installer for Windows (PowerShell).
 #
 # Usage (PowerShell):
-#   irm https://raw.githubusercontent.com/jocoding-ax-partners/homebrew-tap/main/install.ps1 | iex
+#   irm https://cli.jocodingax.ai/install.ps1 | iex
 #
 # Or pin a version:
-#   $env:AXHUB_VERSION = "v0.1.0"; irm <url> | iex
+#   $env:AXHUB_VERSION = "v0.1.0"; irm https://cli.jocodingax.ai/install.ps1 | iex
 
 $ErrorActionPreference = "Stop"
 

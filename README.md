@@ -13,17 +13,17 @@ brew install jocoding-ax-partners/tap/axhub
 ### macOS / Linux (universal install script)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/jocoding-ax-partners/homebrew-tap/main/install.sh | bash
+curl -fsSL https://cli.jocodingax.ai/install.sh | bash
 ```
 
 Options via env var:
 - `AXHUB_INSTALL_DIR=$HOME/bin` — custom install directory
-- `AXHUB_VERSION=v0.1.0` — pin a specific version
+- `AXHUB_VERSION=vX.Y.Z` — pin a specific release tag when needed
 
 ### Windows (PowerShell)
 
 ```powershell
-irm https://raw.githubusercontent.com/jocoding-ax-partners/homebrew-tap/main/install.ps1 | iex
+irm https://cli.jocodingax.ai/install.ps1 | iex
 ```
 
 ### Windows (Scoop)
@@ -71,8 +71,10 @@ see [`docs/verify.md`](./docs/verify.md).
 
 ## Status
 
-**v0.0.1** — formula and install scripts resolve release artifacts from
-`cli.jocodingax.ai`. Future tags are still updated by upstream `goreleaser`.
+The checked-in formula currently targets **0.1.0**, and the install scripts
+default to the latest release from `https://cli.jocodingax.ai/version.txt`
+unless `AXHUB_VERSION` is set. Future tags continue to be updated by upstream
+`goreleaser`.
 
 ## License
 
