@@ -2,9 +2,9 @@
 # axhub installer for macOS + Linux.
 #
 # Usage:
-#   curl -fsSL https://raw.githubusercontent.com/jocoding-ax-partners/homebrew-tap/main/install.sh | bash
-#   AXHUB_INSTALL_DIR=$HOME/bin curl -fsSL ... | bash    # custom install path
-#   AXHUB_VERSION=v0.1.0 curl -fsSL ... | bash           # pin version
+#   curl -fsSL https://cli.jocodingax.ai/install.sh | bash
+#   curl -fsSL https://cli.jocodingax.ai/install.sh | env AXHUB_INSTALL_DIR=$HOME/bin bash    # custom install path
+#   curl -fsSL https://cli.jocodingax.ai/install.sh | env AXHUB_VERSION=v0.1.0 bash    # pin version
 
 set -euo pipefail
 

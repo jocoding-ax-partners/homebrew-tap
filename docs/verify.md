@@ -7,7 +7,7 @@ integrity and provenance before running a binary.
 ## Prerequisites
 
 - `cosign` v2.x — https://docs.sigstore.dev/system_config/installation/
-- Release version tag (e.g. `v0.0.1`)
+- Release version tag (e.g. `v0.1.0`) or the latest tag from `version.txt`
 - Network access to `rekor.sigstore.dev`
 
 ## What is signed
@@ -27,9 +27,13 @@ Three files travel together per release:
 
 ## Verify
 
+All release assets live under `https://cli.jocodingax.ai/<version-without-v>/`.
+Leave `VERSION` unset to verify the current release from `version.txt`, or
+export `VERSION=v0.1.0` (or another tag) before running the commands below.
+
 ```bash
-VERSION=v0.0.1
-CDN=https://cli.jocodingax.ai/${VERSION#v}
+VERSION="${VERSION:-$(curl -fsSL https://cli.jocodingax.ai/version.txt)}"
+CDN="https://cli.jocodingax.ai/${VERSION#v}"
 
 curl -fsSL -O "$CDN/checksums.txt"
 curl -fsSL -O "$CDN/checksums.txt.sig"
@@ -40,7 +44,7 @@ cosign verify-blob \
     "^https://github.com/jocoding-ax-partners/ax-hub-cli/\.github/workflows/release\.yml@refs/tags/${VERSION}$" \
   --certificate-oidc-issuer "https://token.actions.githubusercontent.com" \
   --certificate checksums.txt.pem \
-  --signature   checksums.txt.sig \
+  --signature checksums.txt.sig \
   checksums.txt
 ```
 
@@ -49,8 +53,9 @@ Expected output: `Verified OK`.
 Then verify the archive you actually downloaded:
 
 ```bash
-curl -fsSL -O "$CDN/axhub_${VERSION#v}_linux_arm64.tar.gz"
-grep "axhub_${VERSION#v}_linux_arm64.tar.gz" checksums.txt | sha256sum -c -
+ARCHIVE="axhub_${VERSION#v}_linux_arm64.tar.gz"
+curl -fsSL -O "$CDN/$ARCHIVE"
+grep "${ARCHIVE}$" checksums.txt | sha256sum -c -
 ```
 
 ## Transparency log
