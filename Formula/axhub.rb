@@ -5,21 +5,21 @@
 class Axhub < Formula
   desc "CLI for the axhub developer platform"
   homepage "https://github.com/jocoding-ax-partners/ax-hub-cli"
-  version "0.1.2"
+  version "0.1.3"
   license "Proprietary"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://cli.jocodingax.ai/0.1.2/axhub_0.1.2_darwin_amd64.tar.gz"
-      sha256 "bc1b59f6e669a75aa76096337f87bce32a5f883602b8d7e399ce9ce364587cc3"
+      url "https://cli.jocodingax.ai/0.1.3/axhub_0.1.3_darwin_amd64.tar.gz"
+      sha256 "ad74e411ca759152b7408221125ecd8ebd32dad87073b70fd83d4c806766e919"
 
       define_method(:install) do
         bin.install "axhub"
       end
     end
     if Hardware::CPU.arm?
-      url "https://cli.jocodingax.ai/0.1.2/axhub_0.1.2_darwin_arm64.tar.gz"
-      sha256 "0a943356f2a97d38dff5b89cf846b325a901793ff65d214a4645c90b80d22917"
+      url "https://cli.jocodingax.ai/0.1.3/axhub_0.1.3_darwin_arm64.tar.gz"
+      sha256 "9916ab0c8f8a14c7f3e42b65a18b923f0de4e2c2e24f031b836bad360191c808"
 
       define_method(:install) do
         bin.install "axhub"
@@ -29,15 +29,15 @@ class Axhub < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://cli.jocodingax.ai/0.1.2/axhub_0.1.2_linux_amd64.tar.gz"
-      sha256 "d07e35ea44cd0355636ffff0acb7cac89b40fd8e5b8282035069948cf4914cf5"
+      url "https://cli.jocodingax.ai/0.1.3/axhub_0.1.3_linux_amd64.tar.gz"
+      sha256 "39a7fdcf2cc025a84c8dab4fdf2c5359eedacc1935967140d30ca3f5ba29e7a0"
       define_method(:install) do
         bin.install "axhub"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://cli.jocodingax.ai/0.1.2/axhub_0.1.2_linux_arm64.tar.gz"
-      sha256 "4732666933620aefe290016fef487fd9d572251ac22dcc8907c3a594244402c6"
+      url "https://cli.jocodingax.ai/0.1.3/axhub_0.1.3_linux_arm64.tar.gz"
+      sha256 "60f46283e8418329edcec1203404bf7341ea652e323ffdd4621f525d837807bc"
       define_method(:install) do
         bin.install "axhub"
       end
